@@ -6,7 +6,7 @@ root = Tk()
 v = StringVar()
 
 def newuser():
-    string1 = v.get()
+    string1 = v.get
     print(string1)
 
 
