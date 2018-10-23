@@ -3,12 +3,28 @@ import tkinter.messagebox
 
 root = Tk()
 
+warning1 = StringVar()
+warning2 = StringVar()
+
 def newuser():
     with open('usernames.txt', 'a') as f:
-        f.write(entry1.get())
-        f.write('\n')
-        f.close()
-        entry1.delete(0, 'end') # removes the text from entry after u press register
+        password = entry2.get()
+        username = entry1.get()
+        if len(entry1.get()) > 4 and len(entry2.get()) > 4:
+            f.write(entry1.get())
+            f.write('\n')
+            f.write(entry2.get())
+            f.write('\n')
+            f.close()
+            entry1.delete(0, 'end')
+            entry2.delete(0, 'end')
+            warning1.set(username + " is registered")
+            warning2.set("")
+        else:
+            warning1.set("username and password must")
+            warning2.set("be more than 4 charecters")
+            
+        
 
 
 root.config(background="pink")
@@ -35,6 +51,11 @@ login = Button(text = "Login", bg="pink")
 login.grid(row = 3,column=0, sticky=W+E+N+S, columnspan=2, padx=15, pady=5)
 register = Button(text = "Register a new user", command = newuser, bg="pink")
 register.grid(row = 4,column=0, sticky=W+E+N+S, columnspan=2, padx=15, pady=15)
+
+label_3 = Label(textvariable=warning1, background="pink", fg="black")
+label_3.grid(row = 5,column=0, sticky=W+E+N+S, padx=5, columnspan=2)
+label_4 = Label(textvariable=warning2, background="pink", fg="black")
+label_4.grid(row = 6,column=0, sticky=W+E+N+S, padx=5, columnspan=2)
 
 
 
