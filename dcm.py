@@ -29,12 +29,119 @@ def login():
     username = entry1.get()
     with open('usernames.txt', 'r') as f1:
         users = f1.read().splitlines()
+        
     with open('passwords.txt', 'r') as f2:
         passwords = f2.read().splitlines()
     if username in users:
         index1 = users.index(entry1.get())
         if passwords[index1] == entry2.get():
             warning1.set("logged in as " + entry1.get())
+            root.destroy()
+            root1 = Tk()
+
+            root1.config(background="pink")
+            root1.title(users[index1])
+
+            welcome = Label(text = "Hello user1", background="pink", fg="black" , font=('none', 25))
+            welcome.grid(row = 0,column=0, sticky=W+E+N+S, columnspan=2, padx=15, pady=5)
+
+
+            mode = Label(text = "Seclect Mode", background="pink").grid(row = 1, column = 0, stick = W)
+            lowerrate = Label(text = "Seclect Lower Rate Limit", background="pink").grid(row = 2, column = 0, stick = W)
+            upperrate = Label(text = "Seclect Upper Rate Limit", background="pink").grid(row = 3, column = 0, stick = W)
+
+
+            modeentry = Entry(root1)
+            modeentry.grid(row = 1, column = 2)
+
+            lowerentry = Entry(root1)
+            lowerentry.grid(row = 2, column = 2)
+
+            upperentry = Entry(root1)
+            upperentry.grid(row = 3, column = 2)
+
+
+
+
+
+            def checkinput():
+                low = lowerentry.get()
+                int_a = int(low)
+                kill = True
+
+                high = upperentry.get()
+                int_b = int(high)
+
+                if modeentry.get() == "voo" or modeentry.get() == "VOO":
+                    with open(users[index1]+'.txt', 'a') as f:
+                        f.write(modeentry.get())
+                        f.write('\n')
+                        f.close()
+
+                else:
+                    kill = False
+                    tkinter.messagebox.showinfo('Error', 'please enter a valid mode')
+
+                
+                
+                if  29 < int_a < 51 and int_a%5==0 and kill:
+                    with open(users[index1]+'.txt', 'a') as f:
+                        f.write(lowerentry.get())
+                        f.write('\n')
+                        f.close()
+                    
+
+                elif  49 < int_a < 91 and kill:
+                    with open(users[index1]+'.txt', 'a') as f:
+                        f.write(lowerentry.get())
+                        f.write('\n')
+                        f.close()
+
+
+
+                elif  89 < int_a < 176 and int_a%5==0 and kill:
+                    with open(users[index1]+'.txt', 'a') as f:
+                        f.write(lowerentry.get())
+                        f.write('\n')
+                        f.close()
+
+                else:
+                    kill = False
+                    tkinter.messagebox.showinfo('Error', 'please enter a valid Lower Rate Limit')
+
+                if  49 < int_b < 176 and int_b%5==0 and kill:
+                    with open(users[index1]+'.txt', 'a') as f:
+                        f.write(upperentry.get())
+                        f.write('\n')
+                        f.close()
+
+                else:
+                    kill = False
+                    tkinter.messagebox.showinfo('Error', 'please enter a valid Upper Rate Limit')
+
+
+
+
+
+
+
+            save = Button(text = "Save", command = checkinput)
+            save.grid(row = 6, column = 2)
+
+            logout = Button(text = "Logout")
+            logout.grid(row = 6, column = 3)
+                    
+
+
+
+
+
+
+
+
+
+            root1.mainloop()
+
         else:
             warning1.set("Incorect username or password")
     else:
