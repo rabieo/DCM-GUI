@@ -7,22 +7,39 @@ warning1 = StringVar()
 warning2 = StringVar()
 
 def newuser():
-    with open('usernames.txt', 'a') as f:
-        password = entry2.get()
-        username = entry1.get()
-        if len(entry1.get()) > 4 and len(entry2.get()) > 4:
-            f.write(entry1.get())
-            f.write('\n')
-            f.write(entry2.get())
-            f.write('\n')
-            f.close()
-            entry1.delete(0, 'end')
-            entry2.delete(0, 'end')
-            warning1.set(username + " is registered")
-            warning2.set("")
+    password = entry2.get()
+    username = entry1.get()
+    if len(entry1.get()) > 4 and len(entry2.get()) > 4:
+        with open('usernames.txt', 'a') as f1:
+            f1.write(username)
+            f1.write('\n')
+        with open('passwords.txt', 'a') as f2:
+            f2.write(password)
+            f2.write('\n')
+        entry1.delete(0, 'end')
+        entry2.delete(0, 'end')
+        warning1.set(username + " is registered")
+        warning2.set("")
+    else:
+        warning1.set("username and password must")
+        warning2.set("be more than 4 charecters")
+
+def login():
+    password = entry2.get()
+    username = entry1.get()
+    with open('usernames.txt', 'r') as f1:
+        users = f1.read().splitlines()
+    with open('passwords.txt', 'r') as f2:
+        passwords = f2.read().splitlines()
+    if username in users:
+        index1 = users.index(entry1.get())
+        if passwords[index1] == entry2.get():
+            warning1.set("logged in as " + entry1.get())
         else:
-            warning1.set("username and password must")
-            warning2.set("be more than 4 charecters")
+            warning1.set("Incorect username or password")
+    else:
+        warning1.set("Incorect username or password")
+        
             
         
 
@@ -47,7 +64,7 @@ entry1.grid(row = 1,column=1, sticky=W+E+N+S, padx=15, pady=5)
 entry2 = Entry(root, show= '*')
 entry2.grid(row = 2,column=1, sticky=W+E+N+S, padx=15, pady=5)
 
-login = Button(text = "Login", bg="pink")
+login = Button(text = "Login", command = login , bg="pink")
 login.grid(row = 3,column=0, sticky=W+E+N+S, columnspan=2, padx=15, pady=5)
 register = Button(text = "Register a new user", command = newuser, bg="pink")
 register.grid(row = 4,column=0, sticky=W+E+N+S, columnspan=2, padx=15, pady=15)
