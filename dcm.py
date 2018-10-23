@@ -1,10 +1,7 @@
 from tkinter import *
 import tkinter.messagebox
-#from tkinter.ttk import * # makes bottons look better
 
 root = Tk()
-
-
 
 def newuser():
     with open('usernames.txt', 'a') as f:
@@ -14,28 +11,30 @@ def newuser():
         entry1.delete(0, 'end') # removes the text from entry after u press register
 
 
-root.config(background="light blue")
-root.geometry("500x500")
+root.config(background="pink")
 root.title("beatsronix")
 
 
 
-welcome = Label(text = "Welcome to BeatTronix", background="light blue", font=('none', 25)).place(x = 100, y = 60)
+welcome = Label(text = "BeatTronix", background="pink", fg="black" , font=('none', 25))
+welcome.grid(row = 0,column=0, sticky=W+E+N+S, columnspan=2, padx=15, pady=5)
 
 
 
-label_1 = Label(text ="Username", background="light blue").place(x=207, y=277)
-label_2 = Label(text ="Password", background="light blue").place(x = 210, y=300)
+label_1 = Label(text ="Username", background="pink", fg="black")
+label_1.grid(row = 1,column=0, sticky=W+E+N+S, padx=15, pady=5)
+label_2 = Label(text ="Password", background="pink", fg="black")
+label_2.grid(row = 2,column=0, sticky=W+E+N+S, padx=15, pady=5)
 
 entry1 = Entry(root)
-entry1.place(x=270, y =277)
+entry1.grid(row = 1,column=1, sticky=W+E+N+S, padx=15, pady=5)
 entry2 = Entry(root, show= '*')
-entry2.place(x=270, y =300)
+entry2.grid(row = 2,column=1, sticky=W+E+N+S, padx=15, pady=5)
 
-
-
-login = Button(text = "Login", bg="light blue").place(x = 270, y = 340)
-register = Button(text = "Register a new user", command = newuser, bg="light blue").place( x = 240 , y = 430)
+login = Button(text = "Login", bg="pink")
+login.grid(row = 3,column=0, sticky=W+E+N+S, columnspan=2, padx=15, pady=5)
+register = Button(text = "Register a new user", command = newuser, bg="pink")
+register.grid(row = 4,column=0, sticky=W+E+N+S, columnspan=2, padx=15, pady=15)
 
 
 
