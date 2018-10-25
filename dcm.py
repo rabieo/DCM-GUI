@@ -42,14 +42,16 @@ def login():
             root1.config(background="pink")
             root1.title(users[index1])
 
-            welcome = Label(text = "Hello user1", background="pink", fg="black" , font=('none', 25))
+            welcome = Label(text = "Hello "+users[index1] , background="pink", fg="black" , font=('none', 25))
             welcome.grid(row = 0,column=0, sticky=W+E+N+S, columnspan=2, padx=15, pady=5)
 
 
             mode = Label(text = "Seclect Mode", background="pink").grid(row = 1, column = 0, stick = W)
             lowerrate = Label(text = "Seclect Lower Rate Limit", background="pink").grid(row = 2, column = 0, stick = W)
             upperrate = Label(text = "Seclect Upper Rate Limit", background="pink").grid(row = 3, column = 0, stick = W)
-
+            ventricularamp = Label(text = "Seclect Ventricular Amplitude", background="pink").grid(row = 4, column = 0, stick = W)
+            ventricularamp1 = Label(text = "(If OFF write 0)", background="pink").grid(row = 4, column = 3, stick = W)
+            ventriculapulse = Label(text = "Select Ventricular Pulse Width", background="pink").grid(row = 5, column = 0, stick = W)
 
             modeentry = Entry(root1)
             modeentry.grid(row = 1, column = 2)
@@ -60,17 +62,31 @@ def login():
             upperentry = Entry(root1)
             upperentry.grid(row = 3, column = 2)
 
+            ventricularamp = Entry(root1)
+            ventricularamp.grid(row = 4, column = 2)
 
+            ventricularpulse = Entry(root1)
+            ventricularpulse.grid(row = 5, column = 2)
 
+            def logout():
+                root1.destroy()
+                
+               
 
 
             def checkinput():
                 low = lowerentry.get()
                 int_a = int(low)
-                kill = True
+                
 
                 high = upperentry.get()
                 int_b = int(high)
+
+                vent = ventricularamp.get()
+                float_c = float(vent)
+
+                pulse = ventricularpulse.get()
+                float_d = float(pulse)
 
                 if modeentry.get() == "voo" or modeentry.get() == "VOO":
                     with open(users[index1]+'.txt', 'a') as f:
@@ -79,19 +95,20 @@ def login():
                         f.close()
 
                 else:
-                    kill = False
+                    
                     tkinter.messagebox.showinfo('Error', 'please enter a valid mode')
+                    
 
                 
                 
-                if  29 < int_a < 51 and int_a%5==0 and kill:
+                if  29 < int_a < 51 and int_a%5==0:
                     with open(users[index1]+'.txt', 'a') as f:
                         f.write(lowerentry.get())
                         f.write('\n')
                         f.close()
                     
 
-                elif  49 < int_a < 91 and kill:
+                elif  49 < int_a < 91:
                     with open(users[index1]+'.txt', 'a') as f:
                         f.write(lowerentry.get())
                         f.write('\n')
@@ -99,25 +116,79 @@ def login():
 
 
 
-                elif  89 < int_a < 176 and int_a%5==0 and kill:
+                elif  89 < int_a < 176 and int_a%5==0:
                     with open(users[index1]+'.txt', 'a') as f:
                         f.write(lowerentry.get())
                         f.write('\n')
                         f.close()
 
                 else:
-                    kill = False
+                    
                     tkinter.messagebox.showinfo('Error', 'please enter a valid Lower Rate Limit')
+                    
 
-                if  49 < int_b < 176 and int_b%5==0 and kill:
+                if  49 < int_b < 176 and int_b%5==0:
                     with open(users[index1]+'.txt', 'a') as f:
                         f.write(upperentry.get())
                         f.write('\n')
                         f.close()
 
                 else:
-                    kill = False
+                    
                     tkinter.messagebox.showinfo('Error', 'please enter a valid Upper Rate Limit')
+                    
+
+                if  float_c == 0:
+                    with open(users[index1]+'.txt', 'a') as f:
+                        f.write(ventricularamp.get())
+                        f.write('\n')
+                        f.close()                
+
+
+                        
+                elif  0.5 <= float_c <= 3.2:
+                    with open(users[index1]+'.txt', 'a') as f:
+                        f.write(ventricularamp.get())
+                        f.write('\n')
+                        f.close()
+
+
+                elif  3.5 <= float_c <= 7.0 and float_c%0.5 ==0:
+                    with open(users[index1]+'.txt', 'a') as f:
+                        f.write(ventricularamp.get())
+                        f.write('\n')
+                        f.close()
+
+                else:
+                    tkinter.messagebox.showinfo('Error', 'please enter a valid Ventricular Amplitude')
+
+
+                if  float_d == 0.05:
+                    with open(users[index1]+'.txt', 'a') as f:
+                        f.write(ventricularpulse.get())
+                        f.write('\n')
+                        f.close()                
+
+
+                        
+                elif  0.1 <= float_d <= 1.9:
+                    with open(users[index1]+'.txt', 'a') as f:
+                        f.write(ventricularpulse.get())
+                        f.write('\n')
+                        f.close()
+
+
+                else:
+                    tkinter.messagebox.showinfo('Error', 'please enter a valid Ventricular Pulse Width')
+
+
+                
+
+
+
+
+
+
 
 
 
@@ -126,11 +197,13 @@ def login():
 
 
             save = Button(text = "Save", command = checkinput)
-            save.grid(row = 6, column = 2)
+            save.grid(row = 7, column = 2)
 
-            logout = Button(text = "Logout")
-            logout.grid(row = 6, column = 3)
-                    
+            logout = Button(text = "Logout", command = logout)
+            logout.grid(row = 7, column = 3)
+
+
+
 
 
 
