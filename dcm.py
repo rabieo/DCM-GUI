@@ -70,6 +70,17 @@ def login():
 
             def logout():
                 root1.destroy()
+
+            def help():
+                root2 = Tk()
+                root2.config(background="pink")
+                root2.title(users[index1])
+
+                welcome1 = Label(text = "How To Use" , background="pink", fg="black" , font=('none', 25))
+                welcome1.grid(row = 0,column=0, sticky=W+E+N+S, columnspan=2, padx=15, pady=5)
+
+                
+                
                 
                
 
@@ -201,6 +212,10 @@ def login():
 
             logout = Button(text = "Logout", command = logout)
             logout.grid(row = 7, column = 3)
+
+            help1 = Button(text = "How to Use ?", command = help)
+            help1.grid(row = 0, column = 3)
+            
 
 
 
