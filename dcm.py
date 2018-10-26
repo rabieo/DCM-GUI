@@ -1,5 +1,6 @@
 from tkinter import *
 import tkinter.messagebox
+import os
 
 root = Tk()
 
@@ -76,7 +77,7 @@ def login():
                 root2.config(background="pink")
                 root2.title(users[index1])
 
-                welcome1 = Label(text = "How To Use" , background="pink", fg="black" , font=('none', 25))
+                welcome1 = Label(root2, text = "How To Use" , background="pink", fg="black" , font=('none', 25))
                 welcome1.grid(row = 0,column=0, sticky=W+E+N+S, columnspan=2, padx=15, pady=5)
 
                 
@@ -99,101 +100,143 @@ def login():
                 pulse = ventricularpulse.get()
                 float_d = float(pulse)
 
-                if modeentry.get() == "voo" or modeentry.get() == "VOO":
-                    with open(users[index1]+'.txt', 'a') as f:
-                        f.write(modeentry.get())
-                        f.write('\n')
-                        f.close()
-
-                else:
-                    
-                    tkinter.messagebox.showinfo('Error', 'please enter a valid mode')
-                    
 
                 
-                
-                if  29 < int_a < 51 and int_a%5==0:
-                    with open(users[index1]+'.txt', 'a') as f:
-                        f.write(lowerentry.get())
-                        f.write('\n')
-                        f.close()
-                    
+                if os.path.isfile(users[index1]+'.txt'):
 
-                elif  49 < int_a < 91:
-                    with open(users[index1]+'.txt', 'a') as f:
-                        f.write(lowerentry.get())
-                        f.write('\n')
-                        f.close()
-
-
-
-                elif  89 < int_a < 176 and int_a%5==0:
-                    with open(users[index1]+'.txt', 'a') as f:
-                        f.write(lowerentry.get())
-                        f.write('\n')
-                        f.close()
+                    print("file exits") #in here i have to make the user rechange his parameters
 
                 else:
-                    
-                    tkinter.messagebox.showinfo('Error', 'please enter a valid Lower Rate Limit')
-                    
 
-                if  49 < int_b < 176 and int_b%5==0:
-                    with open(users[index1]+'.txt', 'a') as f:
-                        f.write(upperentry.get())
-                        f.write('\n')
-                        f.close()
 
-                else:
-                    
-                    tkinter.messagebox.showinfo('Error', 'please enter a valid Upper Rate Limit')
+                    k = True     
+
+                    if modeentry.get() == "voo" or modeentry.get() == "VOO" :
+                        with open(users[index1]+'.txt', 'a') as f:
+                            f.write(modeentry.get())
+                            f.write('\n')
+                            f.close()
+
                     
 
-                if  float_c == 0:
-                    with open(users[index1]+'.txt', 'a') as f:
-                        f.write(ventricularamp.get())
-                        f.write('\n')
-                        f.close()                
-
-
+                    else:
                         
-                elif  0.5 <= float_c <= 3.2:
-                    with open(users[index1]+'.txt', 'a') as f:
-                        f.write(ventricularamp.get())
-                        f.write('\n')
-                        f.close()
-
-
-                elif  3.5 <= float_c <= 7.0 and float_c%0.5 ==0:
-                    with open(users[index1]+'.txt', 'a') as f:
-                        f.write(ventricularamp.get())
-                        f.write('\n')
-                        f.close()
-
-                else:
-                    tkinter.messagebox.showinfo('Error', 'please enter a valid Ventricular Amplitude')
-
-
-                if  float_d == 0.05:
-                    with open(users[index1]+'.txt', 'a') as f:
-                        f.write(ventricularpulse.get())
-                        f.write('\n')
-                        f.close()                
-
-
                         
-                elif  0.1 <= float_d <= 1.9:
-                    with open(users[index1]+'.txt', 'a') as f:
-                        f.write(ventricularpulse.get())
-                        f.write('\n')
-                        f.close()
+                        tkinter.messagebox.showinfo('Error', 'please enter a valid mode')
+                        return
+                        
+
+                    
+                    
+                    if  29 < int_a < 51 and int_a%5==0:
+                        with open(users[index1]+'.txt', 'a') as f:
+                            f.write(lowerentry.get())
+                            f.write('\n')
+                            f.close()
+                        
+
+                    elif  49 < int_a < 91:
+                        with open(users[index1]+'.txt', 'a') as f:
+                            f.write(lowerentry.get())
+                            f.write('\n')
+                            f.close()
 
 
-                else:
-                    tkinter.messagebox.showinfo('Error', 'please enter a valid Ventricular Pulse Width')
+
+                    elif  89 < int_a < 176 and int_a%5==0:
+                        with open(users[index1]+'.txt', 'a') as f:
+                            f.write(lowerentry.get())
+                            f.write('\n')
+                            f.close()
+
+                    else:
+                        tkinter.messagebox.showinfo('Error', 'please enter a valid Lower Rate Limit')
+                        os.remove(users[index1]+'.txt')
+                        k = False
+                        return
+                        
+                        
+                        
+                        
+                        
+
+                    if  49 < int_b < 176 and int_b%5==0:
+                        with open(users[index1]+'.txt', 'a') as f:
+                            f.write(upperentry.get())
+                            f.write('\n')
+                            f.close()
+                    elif k:
+                        os.remove(users[index1]+'.txt')
+                        tkinter.messagebox.showinfo('Error', 'please enter a valid Upper Rate Limit')
+                        
+                        return
+
+                    else:
+                        
+                        
+                        tkinter.messagebox.showinfo('Error', 'please enter a valid Upper Rate Limit')
+                        
+
+                    if  float_c == 0:
+                        with open(users[index1]+'.txt', 'a') as f:
+                            f.write(ventricularamp.get())
+                            f.write('\n')
+                            f.close()                
 
 
-                
+                            
+                    elif  0.5 <= float_c <= 3.2:
+                        with open(users[index1]+'.txt', 'a') as f:
+                            f.write(ventricularamp.get())
+                            f.write('\n')
+                            f.close()
+
+
+                    elif  3.5 <= float_c <= 7.0 and float_c%0.5 ==0:
+                        with open(users[index1]+'.txt', 'a') as f:
+                            f.write(ventricularamp.get())
+                            f.write('\n')
+                            f.close()
+
+                    elif k:
+                        os.remove(users[index1]+'.txt')
+                        tkinter.messagebox.showinfo('Error', 'please enter a valid Ventricular Amplitude')
+                        
+                        return
+                        
+
+                    else:
+                        
+                        tkinter.messagebox.showinfo('Error', 'please enter a valid Ventricular Amplitude')
+
+
+                    if  float_d == 0.05:
+                        with open(users[index1]+'.txt', 'a') as f:
+                            f.write(ventricularpulse.get())
+                            f.write('\n')
+                            f.close()                
+
+
+                            
+                    elif  0.1 <= float_d <= 1.9:
+                        with open(users[index1]+'.txt', 'a') as f:
+                            f.write(ventricularpulse.get())
+                            f.write('\n')
+                            f.close()
+
+                    elif k:
+                        os.remove(users[index1]+'.txt')
+                        tkinter.messagebox.showinfo('Error', 'please enter a valid Ventricular Pulse Width')
+                        
+                        return
+
+
+                    else:
+                        
+                        tkinter.messagebox.showinfo('Error', 'please enter a valid Ventricular Pulse Width')
+
+
+                    
 
 
 
