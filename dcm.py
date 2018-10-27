@@ -1,5 +1,4 @@
 from tkinter import *
-
 import tkinter.messagebox
 import os
 
@@ -9,7 +8,9 @@ warning1 = StringVar()
 warning2 = StringVar()
 
 def checknewuser():
-    if len(entry1.get()) > 4 and len(entry2.get()) > 4:
+    password = entry2.get()
+    username = entry1.get()                                  #checks if the registerd username and password are less than 4 characters
+    if len(entry1.get()) > 4 and len(entry2.get()) > 4:      #if the username and password are acceptable both added in two text files
         with open('usernames.txt', 'a') as f1:
             f1.write(username)
             f1.write('\n')
@@ -27,7 +28,7 @@ def checknewuser():
         warning2.set("be more than 4 charecters")
 
 
-def newuser():
+def newuser():                                     #called when the user presses register new user and doesn't allow more than 10 users
     password = entry2.get()
     username = entry1.get()
 
@@ -36,7 +37,7 @@ def newuser():
             size=sum(1 for _ in f)
 
             if size == 10:
-                print("many users")
+                tkinter.messagebox.showinfo('Error', 'please enter a valid mode')
 
         
 
@@ -52,8 +53,8 @@ def newuser():
 
     
 
-def login():
-    password = entry2.get()
+def login():                                        #searches in the username and password text files to see if it matches the login
+    password = entry2.get()                         #if login is correct, the parameters window opens up
     username = entry1.get()
     with open('usernames.txt', 'r') as f1:
         users = f1.read().splitlines()
@@ -96,10 +97,10 @@ def login():
             ventricularpulse = Entry(root1)
             ventricularpulse.grid(row = 5, column = 2)
 
-            def logout():
+            def logout():                               #logout function that closes the the parameters window when called
                 root1.destroy()
 
-            def help1():
+            def help1():                                #help function that show the user the acceptable ranges of the parameters
                 root2 = Toplevel()
                 root2.config(background="pink")
 
@@ -113,9 +114,39 @@ def login():
 
                 root2.mainloop()
 
+            def review():                                       #when review button pressed it shows the user his previous input
+                if os.path.isfile(users[index1]+'.txt'):
+                    root3 = Toplevel()
+                    root3.config(background="pink")
+                    with open(users[index1]+'.txt', 'r') as f:
+                        lines = f.readlines()
+                        
+                        label_0 = Label(root3,text =lines[0], background="pink", fg="black")
+                        label_0.grid(row = 1,column=1, sticky=W)
+
+                        label0 = Label(root3,text =lines[1], background="pink", fg="black")
+                        label0.grid(row = 2,column=1, sticky=W)
+
+                        label1 = Label(root3,text =lines[2], background="pink", fg="black")
+                        label1.grid(row = 3,column=1, sticky=W)
+
+                        label2 = Label(root3,text =lines[3], background="pink", fg="black")
+                        label2.grid(row = 4,column=1, sticky=W)
+
+                        label3 = Label(root3,text =lines[4], background="pink", fg="black")
+                        label3.grid(row = 5,column=1, sticky=W)
+                        
+                        label4 = Label(root3,text =lines[5], background="pink", fg="black")
+                        label4.grid(row = 6,column=1, sticky=W)
+
+                else:
+                    tkinter.messagebox.showinfo('Error', 'You Dont have an existinf file')
+                
+                
 
 
-            def parameters():
+
+            def parameters():                                  #if statements to check if input is valid
                 low = lowerentry.get()
                 int_a = int(low)
                 
@@ -300,7 +331,9 @@ def login():
 
             help12 = Button(text = "How to Use ?", command = help1)
             help12.grid(row = 0, column = 3)
-            
+
+            help12 = Button(text = "Review Parameters", command = review)
+            help12.grid(row = 7, column = 1)
 
 
 
