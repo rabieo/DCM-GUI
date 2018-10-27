@@ -53,10 +53,6 @@ class loginwindow(Tk):
       self.message2_label = Label(textvariable=self.message2, background="pink", fg="black")
       self.message2_label.grid(row = 6,column=0, sticky=W+E+N+S, padx=5, columnspan=2)
 
-      self.usernamee = self.username_entry.get()
-   def usernamee(self):
-      return self.usernamee
-
    def newuser(self):
       password = self.password_entry.get()
       username = self.username_entry.get() 
